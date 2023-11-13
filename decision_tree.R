@@ -3,7 +3,7 @@ prostate <- read.csv("./prostate.csv") # read the dataset
 # Decision tree
 # Since the prediction variable is continuous, the level of prostate specific antigen is predicted through a regression tree
 
-library(tree)
+library(tree) # import library
 set.seed(1) # set seed for reproducibility
 
 tree.prostate <- tree(lpsa ~ ., prostate) # fit regression tree
@@ -16,9 +16,9 @@ summary(tree.prostate) # check variables used in the regression tree
 # perform 10-fold cross-validation
 x <- as.numeric(list())
 
-for (i in 1:1000){
-set.seed(i)
-cv.prostate <- cv.tree(object=tree.prostate)
+for (i in 1:1000){ # iterate the 10-fold cross validation 1000 times
+set.seed(i) # set seed for riproducibility
+cv.prostate <- cv.tree(object=tree.prostate) # perform cross-validation
 lower <- cv.prostate$size[which.min(cv.prostate$dev)]
 x <- append(x, as.numeric(lower))
 }
