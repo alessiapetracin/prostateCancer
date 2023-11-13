@@ -1,0 +1,10 @@
+prostate <- read.csv("./prostate.csv") # read the dataset
+
+# Decision tree
+""" Since the prediction variable is continuous, the level of prostate specific antigen is predicted through a regression tree.
+"""
+
+library(tree)
+set.seed(1) # set seed for reproducibility
+
+tree.prostate <- tree(lpsa 
