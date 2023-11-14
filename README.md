@@ -25,3 +25,11 @@ The three methods are then evaluated.
 
 ---
 
+### Requirements ###
+
+A virtual environment supporting:
+- R
+The libraries:
+- tree
+- randomForest
+- gbm
