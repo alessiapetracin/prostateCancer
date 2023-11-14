@@ -33,3 +33,9 @@ The libraries:
 - tree
 - randomForest
 - gbm
+
+---
+
+### How to run the project ###
+
+Download the .zip folder containing the dataset and the .R files; unzip it and open it in an .R environment.
