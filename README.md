@@ -21,7 +21,7 @@ In order to analyze the relation between the "lpsa" level and the other variable
 - Random forest
 - Boosted regression tree
 
-The three methods are then compared to evaluate the one that yields better predictions for the task at hand.
+The three methods are then evaluated.
 
 ---
 
