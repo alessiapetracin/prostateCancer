@@ -45,3 +45,37 @@ prune.prostate <- prune.tree(tree.prostate, best = complexity)
 plot(prune.prostate) # plot the pruned tree
 text(prune.prostate, pretty = 0) # remove variable names
 title(main = 'Pruned regression tree') # add title
+
+# compute pruned tree performance
+set.seed(100)
+k <- 10
+nmax <- ncol(prostate) - 1
+cv.errors <- matrix(NA, nrow=k, ncol=nvar, dimnames=list(NULL, paste(1:nvar)))
+
+for(i in 1:k) {
+    train_fold <- prostate[folds != i, ]
+    test_fold <- prostate[folds == i, ]
+    tree.prostate <- tree(lpsa ~ ., data=train_fold)
+    x <- as.numeric(list())
+
+    cv.prostate <- cv.tree(object=tree.prostate)
+    lower <- cv.prostate$size[which.min(cv.prostate$dev)]
+    x <- append(x, as.numeric(lower))
+    
+    Mode <- function(x) {
+      ux <- unique(x)
+      ux[which.max(tabulate(match(x, ux)))]
+    }
+    
+    complexity <- Mode(x)
+    prune.prostate <- prune.tree(tree.prostate, best = complexity)
+    
+    for(j in 1:nmax) {
+        pred <- predict(prune.prostate, test_fold, id=j)
+        cv.errors[i, j] <- mean((test_fold$lpsa - pred)^2)
+    }
+}
+
+#CV error
+mean.cv.errors <- apply(cv.errors, MARGIN=2, FUN = mean)
+min(mean.cv.errors)
